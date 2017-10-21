@@ -1,6 +1,6 @@
 ## Vue-Shop
 
-### A online shop designed and developed by vue.js and related tech stack.
+A online shop designed and developed by vue.js and related tech stack.
 
 ## Coming soon
 
