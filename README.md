@@ -12,8 +12,6 @@ Vue2 + VueRouter + Vuex + ElementUI + Webpack + ES6 + Axios + SCSS + NodeJS + Mo
 
 由于项目开发比较紧促，为了节省时间，此次先暂时使用github上的另一位开发者提供的接口，通过爬虫脚本将所获得的数据写进database作为缓存，以方便今后的使用。
 
-技术栈： nodeJS + mongoDB
-
 注：商品数据通过爬虫抓取写入数据库 (eventproxy + superagent)，因为数据结构十分复杂，所以在首页热门部分通过转发包装简化了数据，__如果你发现部分商品不见了，可能是原有的数据结构已经发生了改变__。
 
 这只是权宜之计，日后将会利用空余时间，独立设计和搭建一个完整的小型数据库服务器。
@@ -33,7 +31,7 @@ Vue2 + VueRouter + Vuex + ElementUI + Webpack + ES6 + Axios + SCSS + NodeJS + Mo
 - 一般默认是在 ``/usr/local/nginx/conf/nginx.conf``
 - 修改配置 找到 server 如下图所示
 
-![nginx配置](../_pics/config_server.png)
+![nginx配置](https://github.com/Geolage/vue-shop/blob/master/_pics/config_server.png)
 
 ## 运行
 
@@ -82,7 +80,7 @@ __注:为了更好地体验整个商店服务流程,请用户自己注册一个�
 
 > 更多功能正在开发当中，后期将会陆续补上
 > 细节和bugs也将会不断完善和修复
-> 如果您有更好的idea或者任何疑问，欢迎issue，我将永远保持积极学习的态度，谢谢！
+> 如果您有更好的idea或者任何疑问，欢迎Issues，我将永远保持积极学习的态度，谢谢！
 
 ## 项目结构
 
