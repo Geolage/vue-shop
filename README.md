@@ -31,7 +31,7 @@ Vue2 + VueRouter + Vuex + ElementUI + Webpack + ES6 + Axios + SCSS + NodeJS + Mo
 - 一般默认是在 ``/usr/local/nginx/conf/nginx.conf``
 - 修改配置 找到 server 如下图所示
 
-![nginx配置](https://github.com/Geolage/vue-shop/blob/master/_pics/config_server.png)
+![nginx配置](https://github.com/Geolage/vue-shop/blob/c1e2b3c2340a57dbc5bdbad2b69ee4a1a7110e8c/_pics/config_server.png)
 
 ## 运行
 
