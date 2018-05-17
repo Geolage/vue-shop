@@ -131,7 +131,7 @@
     width: 1220px;
     height: 500px;
     margin: 20px auto;
-    background: url("/static/images/banner-3d-item.png") center no-repeat;
+    background: url("../../../static/images/banner-3d-item.png") center no-repeat;
     background-size: 100% 100%;
     border-radius: 10px;
     transform-style: preserve-3d;
@@ -146,7 +146,7 @@
     height: 100%;
     bottom: 5px;
     left: 0;
-    background: url("/static/images/banner-3d.png") center no-repeat;
+    background: url("../../../static/images/banner-3d.png") center no-repeat;
     background-size: 95% 100%;
   }
 

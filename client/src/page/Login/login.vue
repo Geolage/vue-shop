@@ -197,7 +197,7 @@
       }
     }
     .wrapper {
-      background: url(/static/images/bg_9b9dcb65ff.png) repeat;
+      background: url(../../../static/images/bg_9b9dcb65ff.png) repeat;
       background-size: 100px;
       min-height: 800px;
       min-width: 630px;
@@ -223,7 +223,7 @@
       background: linear-gradient(#fff, #f5f5f5);
       overflow: visible;
       position: relative;
-      background-image: url('/static/images/shopping_bag.png');
+      background-image: url('../../../static/images/shopping_bag.png');
       background-size: 100px;
       background-position: center;
       background-repeat: no-repeat;
@@ -268,7 +268,7 @@
 
   @media screen and (min-width: 737px), screen and (-webkit-max-device-pixel-ratio: 1.9) and (max-width: 736px) and (min-device-width: 737px) {
     .wrapper {
-      background: url(/static/images/con-bg_04f25dbf8e.jpg) repeat-x;
+      background: url(../../../static/images/con-bg_04f25dbf8e.jpg) repeat-x;
       position: absolute;
       top: 0;
       bottom: 0;
@@ -276,7 +276,7 @@
       right: 0;
     }
     .dialog {
-      background: url(/static/images/dialog-gray-bg.png) #fff bottom repeat-x;
+      background: url(../../../static/images/dialog-gray-bg.png) #fff bottom repeat-x;
       border-radius: 12px;
       display: none;
       margin: -163px 0 0 -218px;

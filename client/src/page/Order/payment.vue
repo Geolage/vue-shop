@@ -10,8 +10,8 @@
         <div class="pay-type">
           <div class="p-title">支付方式</div>
           <div class="pay-item">
-            <div :class="{active:payType==1}" @click="payType=1"><img src="/static/images/alipay@2x.png" alt=""></div>
-            <div :class="{active:payType==2}" @click="payType=2"><img src="/static/images/weixinpay@2x.png" alt="">
+            <div :class="{active:payType==1}" @click="payType=1"><img src="../../../static/images/alipay@2x.png" alt=""></div>
+            <div :class="{active:payType==2}" @click="payType=2"><img src="../../../static/images/weixinpay@2x.png" alt="">
             </div>
           </div>
         </div>
