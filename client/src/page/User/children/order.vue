@@ -82,7 +82,7 @@
         }).then(() => {
           delOrder({orderId}).then(res => {
             if (!res.status) {
-              this.orderList.splice(i, 1)
+              this.orderList = this.orderList.filter((ele, ind) => i !== ind)
               this.$message({
                 type: 'success',
                 message: '删除成功!'

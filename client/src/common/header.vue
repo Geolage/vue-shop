@@ -157,7 +157,6 @@
           link: '/user/coupon'
         }],
         st: false,
-        cartShow: false, // 头部购物车显示
         timerCartShow: null // 定时隐藏购物车
       }
     },
@@ -249,6 +248,7 @@
       }, 300)
       window.addEventListener('scroll', this.navFixed)
       window.addEventListener('resize', this.navFixed)
+      this.SHOW_CART({showCart: false})
     },
     components: {
       CtmButton

@@ -48,7 +48,7 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: user,
-      // redirect: '/user/orderList',
+      redirect: '/user/orderList',
       children: [
         {path: 'orderList', name: '订单列表', component: orderList},
         {path: 'information', name: '账户资料', component: information},
