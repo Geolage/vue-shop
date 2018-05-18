@@ -17,7 +17,6 @@
       return {
         transEnter: 'fadeInRight',
         transLeave: 'fadeOutLeft',
-        showView: true,
         isFetched: false
       }
     },
@@ -29,7 +28,6 @@
           this.transName = 'fadeOutRight'
         }
         this.$router.isBack = false
-        this.showView = !this.showView
       }
     },
     mounted () {

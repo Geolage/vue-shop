@@ -120,7 +120,10 @@
           if (!res.status) {
             this.$router.push({path: '/order/paysuccess', query: {price: this.checkPrice}})
           } else {
-            alert('支付失败')
+            this.$message({
+              type: 'error',
+              message: '支付失败！请稍后重试！'
+            })
           }
         })
       },

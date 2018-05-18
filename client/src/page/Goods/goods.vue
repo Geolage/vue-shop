@@ -1,38 +1,42 @@
 <template>
-  <div class="goods">
-    <div class="nav">
-      <div class="w">
-        <a href="javascript:;" :class="{active:sortType===1}" @click="sort()">综合排序</a>
-        <a href="javascript:;" @click="sort(1)" :class="{active:sortType===2}">价格从低到高</a>
-        <a href="javascript:;" @click="sort(-1)" :class="{active:sortType===3}">价格从高到低</a>
-        <div class="price-interval">
-          <input type="number" class="input" placeholder="价格" v-model="min">
-          <span style="margin: 0 5px"> - </span>
-          <input type="number" placeholder="价格" v-model="max" @keydown.enter="_default" ref="getBlur">
-          <ctm-button text="确定" classStyle="main-btn" @btnClick="_default" style="margin-left: 10px;"></ctm-button>
-          <ctm-button text="重新筛选" classStyle="default-btn" @btnClick="reset" style="margin-left: 10px;"></ctm-button>
-        </div>
-        <div class="search-bar">
-          <el-input class="input-box" v-model="searchText" placeholder="在这里搜索商品" clearable size="small" @keydown.enter.native="search" ref="search"></el-input>
-          <ctm-button class="search-btn" text="搜索" classStyle="main-btn" @btnClick="search" style="margin-left: 10px;">确定</ctm-button>
+  <div class="shop-page" v-loading.fullscreen.lock="loading" element-loading-text="请稍等，正在拼命加载中 ..." element-loading-background="#fff">
+    <div class="goods" v-show="!loading">
+      <div class="nav">
+        <div class="w">
+          <a href="javascript:;" :class="{active:sortType===1}" @click="sort()">综合排序</a>
+          <a href="javascript:;" @click="sort(1)" :class="{active:sortType===2}">价格从低到高</a>
+          <a href="javascript:;" @click="sort(-1)" :class="{active:sortType===3}">价格从高到低</a>
+          <div class="price-interval">
+            <input type="number" class="input" placeholder="价格" v-model="min">
+            <span style="margin: 0 5px"> - </span>
+            <input type="number" placeholder="价格" v-model="max" @keydown.enter="_default" ref="getBlur">
+            <ctm-button text="确定" classStyle="main-btn" @btnClick="_default" style="margin-left: 10px;"></ctm-button>
+            <ctm-button text="重新筛选" classStyle="default-btn" @btnClick="reset" style="margin-left: 10px;"></ctm-button>
+          </div>
+          <div class="search-bar">
+            <el-input class="input-box" v-model="searchText" placeholder="在这里搜索商品" clearable size="small" @keydown.enter.native="search" ref="search"></el-input>
+            <ctm-button class="search-btn" text="搜索" classStyle="main-btn" @btnClick="search" style="margin-left: 10px;">确定</ctm-button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!--商品-->
-    <div class="goods-box w" v-loading.fullscreen="loading" element-loading-text="请稍等，正在拼命加载中 ..." element-loading-background="#fff">
-      <mall-goods v-if="!notfound" v-for="(item,i) in computer" :key="i" :msg="item"></mall-goods>
-    </div>
-    <div class="notfound-context" v-show="notfound">
-      <p style="margin-bottom: 20px">Oooops！暂无你想要找的东西 ...</p>
-      <ctm-button text="返回" classStyle="default-btn" @btnClick="reset"></ctm-button>
-    </div>
-    <div v-show="!busy&&visible"
-         class="w load-more"
-         v-infinite-scroll="loadMore"
-         infinite-scroll-disabled="busy"
-         infinite-scroll-distance="100">
-      正在加载中...
+      <!--商品-->
+      <div class="goods-box w">
+        <mall-goods v-if="!notfound" v-for="(item,i) in computer" :key="i" :msg="item"></mall-goods>
+      </div>
+
+      <div class="notfound-context" v-show="notfound">
+        <p style="margin-bottom: 20px">Oooops！暂无你想要找的东西 ...</p>
+        <ctm-button text="返回" classStyle="default-btn" @btnClick="reset"></ctm-button>
+      </div>
+
+      <div v-show="!busy&&visible"
+          class="w load-more"
+          v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="busy"
+          infinite-scroll-distance="100">
+        正在加载中...
+      </div>
     </div>
   </div>
 </template>
@@ -86,11 +90,12 @@
             clearTimeout(this.timer)
             this.notfound = !this.computer.length
             this.busy = true
-            this.notfound && (!this.searchText && this.$refs.search.focus() || this.max && this.$refs.getBlur.focus())
+            this.notfound && (this.searchText && this.$refs.search.focus() || this.max && this.$refs.getBlur.focus())
           }
-          setTimeout(() => {  // delay mocking
+          // delay mocking
+          setTimeout(() => {
             this.loading = false
-          }, 500)
+          }, 1000)
         })
       },
       // 默认结果
@@ -108,6 +113,7 @@
         this.params.sort = ''
         this.min = ''
         this.max = ''
+        this.computer
         this._default()
       },
       // 搜索商品
@@ -116,6 +122,7 @@
         this.params.page = 1
         this.busy = false
         this.loading = true
+        this.computer = []
         this._getComputer()
       },
       // 价格排序

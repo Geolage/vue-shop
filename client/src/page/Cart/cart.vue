@@ -214,8 +214,16 @@
           if (type === 'check') {
             let newChecked = checked === '1' ? '0' : '1'
             this._cartEdit(productId, productNum, newChecked)
+            this.$message({
+              type: 'success',
+              message: '操作成功！'
+            })
           }
         } else {
+          this.$message({
+            type: 'error',
+            message: '操作失败！请稍后重试！'
+          })
           console.log('缺少所需参数')
         }
       },
