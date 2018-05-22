@@ -16,22 +16,6 @@ Vue2 + VueRouter + Vuex + ElementUI + Webpack + ES6 + Axios + SCSS + NodeJS + Mo
 
 这只是权宜之计，日后将会利用空余时间，独立设计和搭建一个完整的小型数据库服务器。
 
-## 部署
-
-使用 nginx 做反向代理，解决跨域问题。
-
-1. 先在服务器安装 Nginx
-2. 上传nodejs代码
-- 把上传通过各种方式(命令行或者ftp)上传到服务器 进入目录下安装node依赖(与本地开发并无区别)
-- 使用pm2启动 此时会打开一个端口 假设为6666
-- 此时node已运行在服务端
-3. 将打包后的前端静态文件dist目录上传到服务器
-4. 配置方向代理
-- 找到Nginx配置文件，如果不知道在哪,可以上百度搜一下有命令提示
-- 一般默认是在 ``/usr/local/nginx/conf/nginx.conf``
-- 修改配置 找到 server 如下图所示
-
-![nginx配置](https://github.com/Geolage/vue-shop/blob/c1e2b3c2340a57dbc5bdbad2b69ee4a1a7110e8c/_pics/config_server.png)
 
 ## 运行
 
@@ -60,7 +44,6 @@ __注:为了更好地体验整个商店服务流程,请用户自己注册一个�
 
 ```txt
  账号: admin  密码: admin
- 账号: 123 密码: 123
 ```
 
 ## 功能
