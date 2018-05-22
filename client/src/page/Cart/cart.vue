@@ -561,7 +561,7 @@
 
   .cart-e {
     margin: 0 auto;
-    background: url("../../../static/images/cart-empty_@2x.png") no-repeat;
+    background: url(http://p8wyuj0a5.bkt.clouddn.com/demo/shop/images/cart-empty.png) no-repeat;
     width: 275px;
     height: 300px;
     color: #8d8d8d;

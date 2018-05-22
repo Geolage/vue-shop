@@ -1,6 +1,42 @@
-extends layout
-
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+doctype html
+html
+  head
+    meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+    title 404 - Not Found
+    link(rel="stylesheet", href="http://geolage.higherloft.com/demo/shop/server/public/stylesheets/error.css")
+  body
+    #wrap
+      .content
+        .top
+          .sign 未找到您访问的页面，<br>但我们找到了 <span class="fontRed">您儿时热爱的画面。</span>
+        .game
+          div(class="ready twinkling" style="display: none;")
+          .yellow-wrap.yellowMoving
+            .yellow.yellowRotate
+              .openClose
+          .red-wrap.redMoving
+            .red.bigSmall
+              .eye1.eyeMove
+              .eye2.eyeMove
+          .oranger
+            .eye3.eyeMove
+            .eye4.eyeMove
+          .purple
+            .eye5
+            .eye6.eyeMove
+          .blue
+            .eye7.eyeMove
+            .eye8.eyeMove
+          span.span1
+          span.span2
+          span.span3
+          span.span4
+          span.span5
+          span.span6
+          span.span7
+          span.span8
+          span.span9
+          span.span10
+          span.span11
+          span.span12
+          span.span13
