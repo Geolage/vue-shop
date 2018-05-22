@@ -26,6 +26,7 @@ module.exports = {
       '/page': resolve('src/page'),
       '/common': resolve('src/common'),
       '/assets': resolve('src/assets'),
+      '/static': resolve('static'),
       '/api': resolve('src/api'),
       '/utils': resolve('src/utils')
     }

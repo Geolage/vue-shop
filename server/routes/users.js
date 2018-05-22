@@ -147,7 +147,7 @@ router.post('/upload', function (req, res, next) {
 })
 
 // 修改头像
-router.post('/updateheadimage', function (req, res, next) {
+router.post('/updateAvatar', function (req, res, next) {
     var userId = req.cookies.userId;
     var imageSrc = req.body.imageSrc;
     if (userId && imageSrc) {

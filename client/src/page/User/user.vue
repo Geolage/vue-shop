@@ -18,7 +18,9 @@
           </div>
         </div>
         <div class="account-content">
-          <router-view></router-view>
+          <transition name="router-transiton" mode="out-in" :enter-active-class="transEnter" :leave-active-class="transLeave">
+            <router-view class="animated"></router-view>
+          </transition>
         </div>
       </div>
     </div>
@@ -40,9 +42,11 @@
           {name: '收货地址', path: 'addressList'},
           {name: '我的优惠', path: 'coupon'},
           {name: '售后服务', path: 'support'},
-          {name: '以旧换新', path: 'aihuishou'}
+          {name: '以旧换新', path: 'recycle'}
         ],
-        editAvatar: true
+        editAvatar: true,
+        transEnter: 'fadeInUp',
+        transLeave: 'fadeOutUp'
       }
     },
     computed: {
@@ -82,6 +86,7 @@
 
   .w {
     padding-top: 40px;
+    overflow: hidden;
   }
 
   .content {

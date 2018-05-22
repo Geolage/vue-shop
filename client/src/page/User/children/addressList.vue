@@ -122,9 +122,16 @@
       del (addressId, i) {
         addressDel({addressId}).then(res => {
           if (res.status === '0') {
-            this.addList.splice(i, 1)
+            this.addList = this.addList.filter((ele, ind) => i !== ind)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
           } else {
-            alert('删除失败')
+            this.$message({
+              type: 'error',
+              message: '删除失败！请稍后重试！'
+            })
           }
         })
       },

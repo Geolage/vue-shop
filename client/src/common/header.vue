@@ -157,8 +157,6 @@
           link: '/user/coupon'
         }],
         st: false,
-        // 头部购物车显示
-        cartShow: false,
         timerCartShow: null // 定时隐藏购物车
       }
     },
@@ -178,7 +176,7 @@
       totalNum () {
         let totalNum = 0
         this.cartList.length && this.cartList.forEach(item => {
-          totalNum += (item.productNum)
+          totalNum += (item.productNum || 0)
         })
         return totalNum
       }
@@ -250,6 +248,7 @@
       }, 300)
       window.addEventListener('scroll', this.navFixed)
       window.addEventListener('resize', this.navFixed)
+      this.SHOW_CART({showCart: false})
     },
     components: {
       CtmButton
@@ -360,7 +359,7 @@
       display: flex;
       align-items: center;
       > a {
-        background: url(/static/images/shopping_bag.png) no-repeat 50%;
+        background: url(../../static/images/shopping_bag.png) no-repeat 50%;
         background-size: cover;
         display: block;
         @include wh(50px, 50px);
@@ -456,7 +455,7 @@
           left: 8px;
           top: 0;
           @include wh(20px);
-          background: url(/static/images/account-icon@2x.32d87deb02b3d1c3cc5bcff0c26314ac.png) -155px 0;
+          background: url(../../static/images/account-icon@2x.32d87deb02b3d1c3cc5bcff0c26314ac.png) -155px 0;
           background-size: 240px 107px;
           transition: none;
         }
@@ -555,7 +554,7 @@
           display: block;
           @include wh(30px, 100%);
           content: " ";
-          background: url(/static/images/account-icon@2x.32d87deb02b3d1c3cc5bcff0c26314ac.png) 0 -22px;
+          background: url(../../static/images/account-icon@2x.32d87deb02b3d1c3cc5bcff0c26314ac.png) 0 -22px;
           background-size: 240px 107px;
           background-position: -150px -22px;
         }
@@ -800,7 +799,7 @@
       &:before {
         position: absolute;
         content: " ";
-        background: url(/static/images/account-icon@2x.32d87deb02b3d1c3cc5bcff0c26314ac.png) no-repeat -49px -43px;
+        background: url(../../static/images/account-icon@2x.32d87deb02b3d1c3cc5bcff0c26314ac.png) no-repeat -49px -43px;
         background-size: 240px 107px;
         @include wh(20px, 8px);
         top: -8px;
@@ -914,7 +913,7 @@
     top: 50%;
     width: 76px;
     height: 62px;
-    background: url("/static/images/cart-empty-new.png") no-repeat;
+    background: url("../../static/images/cart-empty-new.png") no-repeat;
     background-size: cover;
   }
 </style>

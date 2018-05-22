@@ -12,7 +12,15 @@ router.get('/computer',  (req, res, next) => {
     let priceGt = +req.query.priceGt || ''; // 大于
     let priceLte = +req.query.priceLte || ''; // 小于
     let skip = (page - 1) * pageSize;//跳过多少条
-    let params = {}
+    let searchText = req.query.searchText;
+    var regex = new RegExp(`.*${searchText}.*`,'i')
+    let params = searchText ? {
+        $or:[
+            {productName: regex},
+            {sub_title: regex}
+        ]
+    } : null
+
     if (priceGt || priceLte) {
         if (priceGt && priceLte) {
             if (priceGt > priceLte) {
@@ -21,21 +29,23 @@ router.get('/computer',  (req, res, next) => {
                 priceLte = g
             }
             params = {
-                'salePrice': {
+                ...params,
+                salePrice: {
                     $gt: priceGt,
                     $lte: priceLte
                 }
             }
         } else {
             params = {
-                'salePrice': {
+                ...params,
+                salePrice: {
                     $gt: priceGt || 0,
-                    $lte: priceLte || 99999
+                    $lte: priceLte || 999999
                 }
             }
         }
     }
-
+    
     let productModel = Good.find(params).skip(skip).limit(pageSize);
     // 1 升序 -1 降序
     sort && productModel.sort({'salePrice': sort})

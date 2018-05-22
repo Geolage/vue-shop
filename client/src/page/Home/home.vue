@@ -1,34 +1,35 @@
 <template>
-  <div>
-    <div class="banner">
-      <div class="bg" ref="bg"
-           @mouseover="bgOver($refs.bg)"
-           @mousemove="bgMove($refs.bg,$event)"
-           @mouseout="bgOut($refs.bg)">
-        <span class="img a"></span>
-        <span class="text b">以傲慢与偏执<br/>回敬傲慢与偏见</span>
-        <span class="copyright c">code by qingjin.me | picture from t.tt</span>
+  <div class="shop-page" v-loading.fullscreen.lock="!isFetched" element-loading-text="正在拼命加载中 ..." element-loading-background="#fff">
+    <div class="page-home" v-if="isFetched">
+      <div class="banner">
+        <div class="bg" ref="bg"
+            @mouseover="bgOver($refs.bg)"
+            @mousemove="bgMove($refs.bg,$event)"
+            @mouseout="bgOut($refs.bg)">
+          <span class="img a"></span>
+          <span class="text b">以傲慢与偏执<br/>回敬傲慢与偏见</span>
+          <span class="copyright c">code by qingjin.me | picture from t.tt</span>
+        </div>
       </div>
-    </div>
 
-
-    <section class="w mt30 clearfix">
-      <ctm-shelf title="热门商品">
-        <div slot="content" class="hot">
-          <mall-goods :msg="item" v-for="(item,i) in hot" :key="i"></mall-goods>
-        </div>
-      </ctm-shelf>
-    </section>
-    <section class="w mt30 clearfix" v-for="(item,i) in floors" :key="i">
-      <ctm-shelf :title="item.title">
-        <div slot="content" class="floors">
-          <div class="imgbanner">
-            <img v-lazy="floors[i].image.image" :alt="item.title">
+      <section class="w mt30 clearfix">
+        <ctm-shelf title="热门商品">
+          <div slot="content" class="hot">
+            <mall-goods :msg="item" v-for="(item,i) in hot" :key="i"></mall-goods>
           </div>
-          <mall-goods :msg="tab" v-for="(tab,i) in item.tabs" :key="i"></mall-goods>
-        </div>
-      </ctm-shelf>
-    </section>
+        </ctm-shelf>
+      </section>
+      <section class="w mt30 clearfix" v-for="(item,i) in floors" :key="i">
+        <ctm-shelf :title="item.title">
+          <div slot="content" class="floors">
+            <div class="imgbanner">
+              <img v-lazy="floors[i].image.image" :alt="item.title">
+            </div>
+            <mall-goods :msg="tab" v-for="(tab,i) in item.tabs" :key="i"></mall-goods>
+          </div>
+        </ctm-shelf>
+      </section>
+    </div>
   </div>
 </template>
 <script>
@@ -48,7 +49,8 @@
           offsetHeight: 0
         },
         floors: [],
-        hot: []
+        hot: [],
+        isFetched: false
       }
     },
     methods: {
@@ -102,6 +104,10 @@
         }
         // 热门商品乱序
         this.hot = (this.shuffleArr(home_hot)).slice(0, 4)
+        // fetch data mocking
+        setTimeout(() => {
+          this.isFetched = true
+        }, 800)
       })
     },
     components: {
@@ -131,7 +137,7 @@
     width: 1220px;
     height: 500px;
     margin: 20px auto;
-    background: url("/static/images/banner-3d-item.png") center no-repeat;
+    background: url("http://p8wyuj0a5.bkt.clouddn.com/demo/shop/images/banner-3d-item.png") center no-repeat;
     background-size: 100% 100%;
     border-radius: 10px;
     transform-style: preserve-3d;
@@ -146,7 +152,7 @@
     height: 100%;
     bottom: 5px;
     left: 0;
-    background: url("/static/images/banner-3d.png") center no-repeat;
+    background: url("http://p8wyuj0a5.bkt.clouddn.com/demo/shop/images/banner-3d.png") center no-repeat;
     background-size: 95% 100%;
   }
 

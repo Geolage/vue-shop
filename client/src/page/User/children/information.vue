@@ -75,14 +75,13 @@
 </template>
 <script>
   import CtmButton from '/components/ctmButton'
-  import { upload, updateheadimage } from '/api/index'
+  import { upload, updateAvatar } from '/api/index'
   import CtmShelf from '/components/shelf'
   import vueCropper from 'vue-cropper'
   import { mapState, mapMutations } from 'vuex'
   export default {
     data () {
       return {
-        imgSrc: '',
         editAvatarShow: false,
         cropContext: '',
         cropperImg: '',
@@ -109,6 +108,9 @@
     computed: {
       ...mapState(['userInfo'])
     },
+    mounted () {
+      this.option.img = this.userInfo.info.avatar
+    },
     methods: {
       ...mapMutations([
         'RECORD_USERINFO'
@@ -116,11 +118,20 @@
       upimg (e) {
         var file = e.target.files[0]
         if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
-          alert('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
+          this.$message({
+            type: 'error',
+            message: '图片类型必须是.gif,jpeg,jpg,png,bmp中的一种!',
+            customClass: 'tips-msg'
+          })
           return false
         }
         if (file.size > 2 * 1024 * 1024) {
-          alert('选择的图片不能大于2M！')
+          this.$message({
+            type: 'error',
+            message: '选择的图片不能大于2M！',
+            customClass: 'tips-msg',
+            showClose: true
+          })
           return false
         }
         var reader = new FileReader()
@@ -132,25 +143,37 @@
       cropper () {
         if (this.option.img) {
           this.$refs.cropper.getCropData((data) => {
-            this.imgSrc = data
             upload({imgData: data}).then(res => {
               if (res.status === '0') {
                 let path = res.result.path
-                console.log(this.option)
-                updateheadimage({imageSrc: path}).then(res1 => {
+                updateAvatar({imageSrc: path}).then(res1 => {
                   if (res1.status === '0') {
-                    let info = this.userInfo
+                    let info = this.userInfo.info
                     info.avatar = path
-                    this.RECORD_USERINFO({info: info})
-                    alert('更换成功')
+                    this.RECORD_USERINFO({info})
+                    this.$message({
+                      type: 'success',
+                      message: '更换头像成功！',
+                      customClass: 'tips-msg'
+                    })
                     this.editAvatarShow = false
+                  } else {
+                    this.$message({
+                      type: 'error',
+                      message: '更换失败！请稍后重试！',
+                      customClass: 'tips-msg'
+                    })
                   }
                 })
               }
             })
           })
         } else {
-          alert('请选择照片！')
+          this.$message({
+            type: 'warning',
+            message: '未发现图片！请点击左侧按钮重新上传！',
+            customClass: 'tips-msg'
+          })
         }
       },
       editAvatar () {
@@ -201,7 +224,7 @@
 
   // 修改头像
   .edit-avatar {
-    z-index: 9999;
+    z-index: 999;
     position: fixed;
     left: 0;
     right: 0;
@@ -230,8 +253,6 @@
       border: 1px solid #dadada;
       border-radius: 6px;
       box-sizing: content-box;
-      &:hover {
-      }
       a {
         color: #888;
         font-size: 12px;
@@ -308,5 +329,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .tips-msg {
+    position: relative;
+    z-index: 9999;
   }
 </style>

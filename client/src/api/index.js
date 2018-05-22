@@ -20,8 +20,8 @@ export const upload = (params) => {
   return http.post('/users/upload', params)
 }
 // 修改头像
-export const updateheadimage = (params) => {
-  return http.post('/users/updateheadimage', params)
+export const updateAvatar = (params) => {
+  return http.post('/users/updateAvatar', params)
 }
 // 首页接口
 export const productHome = (params) => {

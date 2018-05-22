@@ -1,8 +1,17 @@
 
 const mongoose    = require('mongoose')
 const User        = require('./../models/user')
+
+//连接选项
+const opts = {
+    usn: 'admin',
+    pwd: '123456',
+    host: '127.0.0.1',
+    port: '27017'
+}
+
 // 连接数据库
-mongoose.connect('mongodb://127.0.0.1:27017/vue-shop', {useMongoClient: true})
+mongoose.connect(`mongodb://${opts.usn}:${opts.pwd}@${opts.host}:${opts.port}/vue-shop`, {useMongoClient: true})
 
 function initAdmin() {
     return new Promise(resolve => {
@@ -17,7 +26,7 @@ function initAdmin() {
             "cartList": [],
             "addressList": []
         }, (err) => {
-            if (err) console.log('发生错误');
+            if (err) console.log('发生错误: ', err);
             resolve()
         })
     })

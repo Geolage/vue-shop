@@ -1,62 +1,64 @@
 <!--商品详情-->
 <template>
-  <div class="w store-content">
-    <div class="gray-box">
-      <div class="gallery-wrapper">
-        <div class="gallery">
-          <div class="thumbnail">
-            <ul>
-              <li v-for="item in small" :class="{on:big===item}" @click="big=item">
-                <img v-lazy="item" :alt="product.productName">
-              </li>
-            </ul>
-          </div>
-          <div class="thumb">
-            <div class="big">
-              <img :src="big" :alt="product.productName" :class="{'big-img':true,'active':isZoom}" @load="initZoomer">
+  <div class="shop-page" v-loading.fullscreen.lock="!isFetched" element-loading-text="请稍等，正在拼命加载中 ..." element-loading-background="#fff">
+    <div class="w store-content" v-if="isFetched">
+      <div class="gray-box">
+        <div class="gallery-wrapper">
+          <div class="gallery">
+            <div class="thumbnail">
+              <ul>
+                <li v-for="item in small" :key="small.indexOf(item)" :class="{on:big===item}" @click="big=item">
+                  <img v-lazy="item" :alt="product.productName">
+                </li>
+              </ul>
+            </div>
+            <div class="thumb">
+              <div class="big">
+                <img :src="big" :alt="product.productName" :class="{'big-img':true,'active':isZoom}" @load="initZoomer">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!--右边-->
-      <div class="banner">
-        <div class="sku-custom-title">
-          <h4>{{product.productName}}</h4>
-          <h6>
-            <span>{{product.sub_title}}</span>
-            <span class="price">
-              <em>¥</em><i>{{product.salePrice}}</i></span>
-          </h6>
-        </div>
-        <div class="num">
-          <span class="params-name">数量</span>
-          <buy-num @edit-num="editNum" :limit="Number(product.limit_num)"></buy-num>
-        </div>
-        <div class="buy">
-          <ctm-button text="加入购物车"
-                    @btnClick="addCart(product.productId,product.salePrice,product.productName,product.productImageBig)"
-                    classStyle="main-btn"
-                    style="width: 145px;height: 50px;line-height: 48px"></ctm-button>
-          <ctm-button text="现在购买"
-                    @btnClick="checkout(product.productId)"
-                    style="width: 145px;height: 50px;line-height: 48px"></ctm-button>
-        </div>
-      </div>
-    </div>
-    <!--产品信息-->
-    <div class="item-info">
-      <ctm-shelf title="产品信息">
-        <div slot="content">
-          <div class="img-item" v-if="productMsg">
-            <img v-for="item in productMsg.pieces_num" :key="item"
-                 v-lazy="`${productMsg.url}?x-oss-process=image/resize,w_2440/indexcrop,y_1440,i_${item-1}/quality,Q_100/format,webp`"
-                 alt="">
+        <!--右边-->
+        <div class="banner">
+          <div class="sku-custom-title">
+            <h4>{{product.productName}}</h4>
+            <h6>
+              <span>{{product.sub_title}}</span>
+              <span class="price">
+                <em>¥</em><i>{{product.salePrice}}</i></span>
+            </h6>
           </div>
-          <div class="no-info" v-else>
-            该产品暂无内容
+          <div class="num">
+            <span class="params-name">数量</span>
+            <buy-num @edit-num="editNum" :limit="Number(product.limit_num)"></buy-num>
+          </div>
+          <div class="buy">
+            <ctm-button text="加入购物车"
+                      @btnClick="addCart(product.productId,product.salePrice,product.productName,product.productImageBig)"
+                      classStyle="main-btn"
+                      style="width: 145px;height: 50px;line-height: 48px"></ctm-button>
+            <ctm-button text="现在购买"
+                      @btnClick="checkout(product.productId)"
+                      style="width: 145px;height: 50px;line-height: 48px"></ctm-button>
           </div>
         </div>
-      </ctm-shelf>
+      </div>
+      <!--产品信息-->
+      <div class="item-info">
+        <ctm-shelf title="产品信息">
+          <div slot="content">
+            <div class="img-item" v-if="productMsg && productMsg.pieces_num">
+              <img v-for="item in productMsg.pieces_num" :key="item"
+                  v-lazy="`${productMsg.url}?x-oss-process=image/resize,w_2440/indexcrop,y_1440,i_${item-1}/quality,Q_100/format,webp`"
+                  alt="">
+            </div>
+            <div class="no-info" v-else>
+              该产品暂无内容
+            </div>
+          </div>
+        </ctm-shelf>
+      </div>
     </div>
   </div>
 </template>
@@ -74,12 +76,19 @@
         productMsg: {},
         small: [],
         big: '',
+        isFetched: false,
         product: {},
         productNum: 1
       }
     },
     computed: {
       ...mapState(['login', 'showMoveImg', 'showCart'])
+    },
+    watch: {
+      big () {
+        const big = document.getElementsByClassName('big')[0]
+        big && big.removeChild(big.lastChild)
+      }
     },
     methods: {
       ...mapMutations(['ADD_CART', 'ADD_ANIMATION', 'SHOW_CART']),
@@ -90,6 +99,10 @@
           this.productMsg = result.productMsg || ''
           this.small = result.productImageSmall
           this.big = this.small[0]
+          // delay mocking
+          setTimeout(() => {
+            this.isFetched = true
+          }, 800)
         })
       },
       addCart (id, price, name, img) {
@@ -144,16 +157,16 @@
       let id = this.$route.query.productId
       this._productDet(id)
     },
-    mounted () {
-      this.$nextTick(() => {
-        document.getElementsByClassName('gray-box')[0].onmousemove = e => {
-          if (e.target === document.getElementsByClassName('magnifier')[0]) {
-            this.isZoom = true
-          } else {
-            this.isZoom = false
-          }
+    updated () {
+      const box = document.getElementsByClassName('gray-box')[0]
+      if (!box) return
+      box.onmousemove = e => {
+        if (e.target === document.getElementsByClassName('magnifier')[0]) {
+          this.isZoom = true
+        } else {
+          this.isZoom = false
         }
-      })
+      }
     }
   }
 </script>
