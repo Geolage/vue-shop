@@ -8,7 +8,6 @@
             @mouseout="bgOut($refs.bg)">
           <span class="img a"></span>
           <span class="text b">以傲慢与偏执<br/>回敬傲慢与偏见</span>
-          <span class="copyright c">code by qingjin.me | picture from t.tt</span>
         </div>
       </div>
 
